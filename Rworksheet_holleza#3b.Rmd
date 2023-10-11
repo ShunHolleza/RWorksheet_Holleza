@@ -1,0 +1,136 @@
+---
+title: "Rworksheet_Holleza#3b.Rmd"
+author: "Shun Holleza"
+date: "2023-10-07"
+output: pdf_document
+---
+  
+```{r 1a}
+household<-data.frame(Respondents <- 1:20, 
+                      Sex <- c(2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2), 
+                      Fathers.Occupation <- c(1, 3, 3, 3, 1, 2, 3, 1, 1, 1, 3, 2, 1, 3, 3, 1, 3, 1, 2, 1), 
+                      Persons.at.Home <- c(5, 7, 3, 8, 5, 9, 6, 7, 8, 4, 7, 5, 4, 7, 8, 8, 3, 11, 7, 6),
+                      Siblngs.at.School <- c(6, 4, 4, 1, 2, 1, 5, 3, 1, 2, 3, 2, 5, 5, 2, 1, 2, 5, 3, 2),
+                      Types.of.Houses<- c(1, 2, 3, 1, 1, 3, 3, 1, 2, 3, 2, 3, 2, 2, 3, 3, 3, 3, 3, 2))
+household
+```
+
+```{r 1b}
+str(household)
+summary(household)
+```
+
+```{r 1c}
+mean.sibling <- mean(household$Siblngs.at.School)
+mean.sibling == 5
+```
+
+```{r 1d}
+ss1<-household[1:2,]
+ss1
+```
+
+```{r 1e}
+ss2<- household[c(3,5), c(2,4)]
+ss2
+```
+
+```{r 1f}
+types_houses <- household$Types.of.Houses
+types_houses
+```
+
+```{r 1g}
+male.farmer <- subset(household, Sex == 1 & Fathers.Occupation == 1)
+male.farmer
+```
+
+```{r 1h}
+femalesiblings.respondents.greaterthan5<- subset (household, Sex == 2 & Siblngs.at.School == 5)
+femalesiblings.respondents.greaterthan5
+```
+
+```{r 2a}
+df = data.frame(Ints=integer(),
+                Doubles=double(), Characters=character(),
+                Logicals=logical(),
+                Factors=factor(),
+                stringsAsFactors=FALSE)
+print("Structure of the empty dataframe:")
+print(str(df))
+```
+#2a. as the table show, the data frame has 0  observation and 5 variavbles. The factor column has nothiing to show since there are no values to define yet.
+
+```{r 3}
+household.data <- data.frame(respondents <- 1:10, 
+                             sex<- c("Male", "Female", "Female", "Male", "Male", "Female", "Female",  "Male", "Female", "Male"), 
+                             Fathers_Occupation <- c(1, 2, 3, 3, 1, 2, 2, 3, 1, 3),
+                             Persons_at_Home<- c(5,7,3,8,6,4,4,2,11,6),
+                             Sibling_at_School <- c(2,3,0,5,2,3,1,2,6,2),
+                             Types_of_Houses<- c("Wood", "Congrete", "Congrete", "Wood", "Semi-Congrete", "Semi-Congrete", "Wood", "Semi-Congrete", "Semi-Congrete", "Congrete"))
+household.data
+write.csv(household.data, file = "HouseholdData.csv", row.names = FALSE)
+household.data
+```
+
+```{r 3a}
+household.data<-read.csv("HouseholdData.csv")
+```
+
+```{r 3b}
+household.data$sex<- factor(household.data$sex)
+household.data$sex<-as.integer(factor(household.data$sex,levels = c("Male", "Female"),labels = c(1,2)))
+```
+
+```{r 3c}
+household.data$Types_of_Houses<- factor(household.data$Types_of_Houses)
+household.data$Types_of_Houses<-as.integer(factor(household.data$Types_of_Houses, levels = c("Wood", "Congrete", "Semi-Congrete"), labels = c(1,2,3)))
+print(household.data)
+```
+
+```{r 3d}
+household.data$Fathers_Occupation<- factor(household.data$Fathers_Occupation)
+household.data$Fathers_Occupation<-as.integer(factor(household.data$Fathers_Occupation, levels = c(1,2,3), labels = c("Farmer", "Driver", "Others")  ))
+print(household.data)
+```
+
+```{r 3e}
+female.drivers<- subset(household.data, sex==2 & Fathers_Occupation == "Driver" )
+female.drivers
+```
+
+```{r 3f}
+respondentsSiblingequalgreater5<- subset(household.data, Sibling_at_School >= 5)
+respondentsSiblingequalgreater5
+```
+
+#4
+The graph shows the sentiments or opinions that are labeled blue (Positive) red(negatvive) and yellow (neutral). It also has track of when were the sentiments recorded, also it has the level of sentiments  that are gathered with the mentioned dates from zero (0) to 4000. and below is my interpretation of data
+July 14, 2020:
+  - Negative: 2,500
+- Neutral: 1,500 
+- Positive: 1,750
+July 15, 2020:
+  - Negative:4,000 
+- Neutral:2,750
+- Positive:3,200
+July 17, 2020:
+  - Negative:3,250
+- Neutral: 1,800 
+- Positive: 2,500 
+July 18, 2020:
+  - Negative: 3,250 
+- Neutral:  2,000 
+- Positive: 2,500 
+
+July 20, 2020:
+  - Negative:  2,500 
+- Neutral:  1,500
+- Positive:  1,750 
+
+July 21, 2020:
+  - Negative :  4,000 
+- Neutral : 2,600 
+- Positive: 3,300 
+
+base on the data, it seems like there are changes in the sentiments every month. which causes it to decrease and increase from time to time and is probably caused by a variety of factors.
