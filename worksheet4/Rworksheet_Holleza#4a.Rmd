@@ -1,0 +1,57 @@
+```{r A}
+shoes <- data.frame(ShoeSize <- c(6.5, 9.0, 8.5, 8.5, 10.5, 7.0, 9.5, 9.0, 13.0, 7.5, 10.5, 8.5, 12.0, 10.5),
+                    Height <- c(66.0, 68.0, 64.5, 65.0, 70.0, 64.0, 70.0, 71.0, 72.0,64.0, 74.5, 67.0, 71.0, 71.0 ))
+shoes
+```
+
+```{r B.}
+Gender <- c("F", "F", "F", "F", "M", "F", "F", "F", "M", "F", "M", "F", "M", "M")
+Shoes <- cbind(shoes, Gender)
+Shoes
+```
+
+```{r c.}
+mean(ShoeSize)
+mean(Height)
+```
+
+```{r D.}
+
+```
+
+```{r 2}
+Tmonths<-c("March","April","January","November","January","September","October","September","November","August","January","November","November","February","May","August","July","December","August","August","September","November","February", "April")
+Tmonths
+factor.months<- factor(Tmonths)
+factor.months
+```
+
+```{r 3.}
+summary(Tmonths)
+summary(factor.months)
+```
+
+```{r 4.}
+freq.data<- data.frame(Direction <- c("East", "West", "North"), Frequency<-c(1,4,3))
+freq.data
+freqDatafactor<-factor(freq.data)
+new.order.data <- factor(freqDatafactor, levels= c("East", "West", "North"))
+new.order.data
+print(new.order.data)
+```
+
+```{r 5.}
+Excel.import<-read.table(file = 'C:/Users/USER/Documents/worksheet4/import_march', header = TRUE, sep = ',' )
+Excel.import
+``` 
+
+```{r 6.}
+category <- readline(prompt = "enter a number from 1 to 50: ")
+choices <- 1:50
+if (category == 20){
+  cat("True", category)
+}else{
+  print("The number selected is beyond the range of 1 to 50")
+}
+```
+
