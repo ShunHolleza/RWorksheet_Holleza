@@ -1,0 +1,97 @@
+```{r 1}
+#1.
+A <- c(1, 2, 3, 4, 5)
+MatrixA <- matrix(0, nrow = 5, ncol = 5)
+print(MatrixA)
+
+for (i in 1:5) {
+  for (j in 1:5) {
+    MatrixA[i, j] <- abs(A[i] - A[j])
+  }
+}
+
+print(MatrixA)
+
+```
+
+
+```{r 2}
+
+num.lines <- 5
+
+for (a in 1:num.lines) {
+  for (b in 1:a) {
+    cat("*")
+  }
+  cat("\n")
+}
+```
+
+```{r 3}
+input.number <- as.numeric(readline("Enter a number to start the Fibonacci sequence: "))
+assume.number <- 0
+x <- 0
+y <- 1
+repeat {
+  if (x > 500) {
+    break
+  }
+  if (x >= assume.number) {
+    cat(x, " ")
+  }
+  temp <- x + y
+  x <- y
+  y <- temp
+}
+cat("\n")
+
+```
+
+```{r 4}
+shoe <-  read.csv("Shoe_sizes.csv")
+shoe
+shoe1 <- shoe[c(1:6),]
+shoe1
+```
+
+```{r 4b}
+femaleData <- subset(shoe, Gender == "Female")
+femaleData
+maleData <- subset(shoe, Gender == "Male")
+maleData
+nrow(femaleData)
+nrow(maleData)
+```
+
+``` {r 4c}
+GraphMF<- table(shoe$Gender)
+barplot(GraphMF,
+        main = "Number of Males and Females",
+        xlab = "Gender",
+        ylab = "Count",
+        col = c("red", "yellow"),
+        legend.text = c("Male", "Female"),
+        beside = TRUE
+)
+```
+
+```{r 5}
+Expenses <- c(Food = 60, Electricity = 10, Savings = 5, Miscellaneous = 25)
+
+pie(Expenses,
+    labels = paste(names(Expenses), "\n", sprintf("%.1f%%", prop.table(Expenses) * 100)),
+    col = c("pink", "orange", "purple", "brown"),  
+    main = "Monthly Expenses of the Dela Cruz Family"
+)
+```
+
+```{r 6a}
+data("iris")
+str(iris)
+#it has 5 variables and 150 observations
+```
+
+```{r 6b}
+meanIris<- colMeans(iris[, c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")])
+print(meanIris)
+```
