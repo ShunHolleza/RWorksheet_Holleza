@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 ```{r 1}
 #1.
 A <- c(1, 2, 3, 4, 5)
@@ -69,7 +74,7 @@ barplot(GraphMF,
         main = "Number of Males and Females",
         xlab = "Gender",
         ylab = "Count",
-        col = c("red", "yellow"),
+        col = c("pink", "red"),
         legend.text = c("Male", "Female"),
         beside = TRUE
 )
@@ -88,10 +93,67 @@ pie(Expenses,
 ```{r 6a}
 data("iris")
 str(iris)
-#it has 5 variables and 150 observations
+#it has 150 observations and 5 variables
 ```
 
 ```{r 6b}
 meanIris<- colMeans(iris[, c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")])
 print(meanIris)
+```
+
+```{r num6c}
+specs <- table(iris$Species)
+
+clors <- c("blue", "purple", "turquoise")
+
+pie(specs,
+    labels = paste(names(specs), "\n", sprintf("%.1f%%", prop.table(specs) * 100)),
+    col = clors,
+    main = "Species Distribution",
+    cex.main = 1.5,
+    cex = 0.8      
+)
+
+```
+
+``` {r num6d}
+SetSub <- subset(iris, Species == "setosa")
+VersiSub <- subset(iris, Species == "versicolor")
+VirgiSub <- subset(iris, Species == "virginica")
+
+# Display the last six rows of each species
+cat("Last six rows of Setosa:")
+print(tail(SetSub))
+
+cat("Last six rows of Versicolor:")
+print(tail(VersiSub))
+
+cat("Last six rows of Virginica:")
+print(tail(VirgiSub))
+```
+
+``` {r num6e}
+
+data(iris)
+
+iris$Species <- as.factor(iris$Species)
+
+plot(iris$Sepal.Length, iris$Sepal.Width,
+     pch = as.integer(iris$Species),
+     col = iris$Species,
+     main = "Iris Dataset",
+     sub = "Sepal width and length",
+     xlab = "Sepal Length",
+     ylab = "Sepal Width"
+)
+```
+
+``` {r num6f}
+#The scatterplot shows similarities between the sepal width and length ranging from 5.5 to 7.0
+```
+
+```{r num7a}
+library(readxl)
+alexa_file <- read_excel("alexa_file.xlsx")
+alexa_file
 ```

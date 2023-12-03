@@ -38,16 +38,15 @@ summary(factor.months)
 ```
 
 ```{r 4.}
-freq.data<- data.frame(Direction <- c("East", "West", "North"), Frequency<-c(1,4,3))
-freq.data
-freqDatafactor<-factor(freq.data)
-new.order.data <- factor(freqDatafactor, levels= c("East", "West", "North"))
-new.order.data
-print(new.order.data)
+factorData <- c("East", "West", "North")
+frequency <- c(1,4,3)
+
+new_order_data <- factor(factorData,levels = c("East","West","North"))
+new_order_data
 ```
 
 ```{r 5.}
-Excel.import<-read.table(file = 'C:/Users/USER/Documents/worksheet4/import_march', header = TRUE, sep = ',' )
+Excel.import<-read.table(file = 'import_march.csv', header = TRUE, sep = ',' )
 Excel.import
 ``` 
 
