@@ -1,0 +1,86 @@
+
+#1.
+```{r 1a}
+data1 <- read.csv("mpg.csv")
+data1
+```
+
+```{r 1b}
+#install.packages(ggplot2)
+library(ggplot2)
+data(mpg)
+str(mpg)
+#"manufacturer", "model", "trans", "drv", "fl", "class"
+```
+
+```{r 1c}
+#"displ," "year," "cyl," "cty,", "hwy"
+```
+
+#2.
+```{r first2}
+manu_Models <- names(sort(table(mpg$manufacturer), decreasing = TRUE))[1]
+manu_Models
+model_variations <- names(sort(table(mpg$model), decreasing = TRUE))[1]
+model_variations
+cat("Manufacturer with the most models:", manu_Models, "\n")
+cat("Model with the most variations:", model_variations, "\n")
+```
+
+```{r first2a}
+data("mpg")
+manu_modelCount<-table(mpg$manufacturer, mpg$model)
+manu_modelCount
+manuUniq.model<-sapply(rownames(manu_modelCount), function(manufacturer) {
+  uniqModels <- names(which(manu_modelCount[manufacturer,] > 0))
+  return(data.frame(manufacturer = manufacturer, uniqModels = length(uniqModels)))
+})
+manuUniq.model
+
+```
+
+```{r first2b plot}
+data("mpg")
+manu_modelCount<- table(mpg$manufacturer, mpg$model)
+manuUniq.model<-sapply(rownames(manu_modelCount), function(manufacturer) {
+  uniqModels <- names(which(manu_modelCount[manufacturer,] > 0))
+  return( length(uniqModels))
+})
+manuUniq.model
+outputDF<- data.frame(manufacturer = names(manuUniq.model), uniqModels = manuUniq.model)
+outputDF
+
+barplot(outputDF$uniqModels, 
+        names.arg = outputDF$manufacturer, 
+        col = "maroon",
+        xlab = "Manufacturer", 
+        ylab = "Number of Unique Models",
+        main = "Number of Unique Models by Manufacturer",
+        cex.names = 0.8)
+```
+
+```{r first2b ggplot}
+data("mpg")
+
+manu_modelCount<- table(mpg$manufacturer, mpg$model)
+manuUniq.models <- sapply(rownames(manu_modelCount), function(manufacturer) {
+  uniqModels <- names(which(manu_modelCount[manufacturer, ] > 0))
+  return(length(uniqModels))
+})
+outputDF<- data.frame(manufacturer = names(manuUniq.model), uniqModels = manuUniq.model)
+ggplot(data = outputDF, aes(x = manufacturer, y = uniqModels))+geom_bar(stat = "identity", fill = "pink") +
+  labs(x = "Manufacturer", y = "Number of Unique Models",
+       title = "Number of Unique Models by Manufacturer") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r second2a}
+ggplot(mpg, aes(model, manufacturer)) + geom_point()
+#the code uses ggplot2 in R to create a scatterplot with the x-axis displaying car models and the y-axis displaying car manufacturers using the mpg dataset. The aes() function is used to specify that the x-axis should show the model variable and the y-axis should show the manufacturer variable. The geom_point() function is then used to create the scatterplot, where each data point represents a specific car model and its corresponding manufacturer.
+```
+
+```{r second2b}
+#by adding a little bit of color you can make it more informative and much clearer.
+ggplot(mpg, aes(model, manufacturer, color = class)) + geom_point()
+```
