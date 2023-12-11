@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 
 #1.
 ```{r 1a}
@@ -83,4 +88,194 @@ ggplot(mpg, aes(model, manufacturer)) + geom_point()
 ```{r second2b}
 #by adding a little bit of color you can make it more informative and much clearer.
 ggplot(mpg, aes(model, manufacturer, color = class)) + geom_point()
+```
+
+```{r 3}
+data("mpg")
+
+top20 <- head(mpg, 20)
+
+ggplot(top20, aes(x = model, y = year)) +
+  geom_point() +
+  labs(x = "Car Model", y = "Year", title = "Top 20 Observations: Model vs. Year") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+```{r 4}
+library(dplyr)
+
+data("mpg")
+
+carsPermodel <- mpg %>%
+  group_by(model) %>%
+  summarize(numberOfcars = n())
+
+print(carsPermodel)
+
+```
+
+```{r 4a}
+library(ggplot2)
+
+data(mpg)
+
+top20 <- head(mpg, 20)
+
+ggplot(top20, aes(x = model)) +
+  geom_bar(fill = "green", color = "black") +
+  labs(
+    title = "Top 20 Cars: Number of Observations by Model",
+    x = "Car Model",
+    y = "Number of Observations"
+  ) +
+  theme_minimal()
+
+```
+
+```{r 4b}
+data(mpg)
+
+top20 <- head(mpg, 20)
+
+ggplot(top20, aes(x = model)) +
+  geom_bar(fill = "green", color = "black") +
+  labs(
+    title = "Top 20 Cars: Number of Observations by Model",
+    x = "Number of Observations",
+    y = "Car Model"
+  ) +
+  theme_minimal() +
+  coord_flip()
+
+```
+
+```{r 5}
+data(mpg)
+
+ggplot(mpg, aes(x = cyl, y = displ, color = displ)) +
+  geom_point() +
+  labs(
+    title = "Relationship between Number of Cylinders and Engine Displacement",
+    x = "Number of Cylinders",
+    y = "Engine Displacement"
+  ) +
+  scale_color_continuous(name = "Engine Displacement") +
+  theme_minimal()
+
+
+```
+
+```{r 5a}
+data(mpg)
+
+ggplot(mpg, aes(x = cyl, y = displ, color = displ)) +
+  geom_point() +
+  labs(
+    title = "Relationship between number of Cylinders and Engine Displacement",
+    x = "Number of Cylinders",
+    y = "Engine Displacement"
+  ) +
+  scale_color_continuous(name = "Engine Displacement") +
+  theme_minimal()
+
+correlation <- cor(mpg$cyl, mpg$displ)
+cat("Correlation Coefficient:", correlation, "\n")
+```
+
+```{r 6}
+data(mpg)
+
+ggplot(mpg, aes(x = displ, y = hwy, color = year)) +
+  geom_point() +
+  labs(
+    title = "Relationship between Engine Displacement and Highway MPG",
+    x = "Engine Displacement",
+    y = "Highway MPG"
+  ) +
+  scale_color_continuous(name = "Year") +
+  theme_minimal()
+```
+
+```{r 6a}
+no.observations <- read.csv("traffic.csv")
+
+nrow(no.observations)
+```
+
+```{r 6b}
+library(dplyr)
+
+junctionData <- no.observations %>%
+  filter(!is.na(Junction))
+
+head(junctionData)
+```
+
+```{r 6.C}
+junctionData <- no.observations %>%
+  filter(!is.na(Junction))
+
+ggplot(junctionData, aes(x = DateTime, y = Vehicles, group = Junction, color = Junction)) +
+  geom_line() +
+  labs(title = "Traffic Flow at Each Junction Over Time", x = "Date and Time", y = "Number of Vehicles") +
+  theme_minimal()
+```
+
+```{r 7}
+#install.packages("readxl")
+library(readxl)
+alexaFile <- read_excel("alexa_file.xlsx")
+alexaFile
+```
+
+```{r 7a}
+num_rows <- nrow(alexaFile)
+num_columns <- ncol(alexaFile)
+num_rows
+num_columns
+```
+
+```{r 7b}
+library(dplyr)
+
+output <- alexaFile %>%
+  group_by(variation) %>%
+  summarize(total_count = n())
+
+print(output)
+```
+
+```{r 7c}
+library(ggplot2)
+
+ggplot(alexaFile, aes(x = variation)) +
+  geom_bar() +
+  labs(title = "Distribution of Variations", x = "Variation", y = "Count") +
+  theme_minimal()
+```
+
+```{r 7d}
+library(ggplot2)
+
+alexaFile$date <- as.Date(alexaFile$date)
+
+ggplot(alexaFile, aes(x = date, y = verified_reviews, group = 1)) +
+  geom_line(color = "blue") +
+  labs(title = "Verified Reviews Over Time",
+       x = "Date",
+       y = "Number of Verified Reviews") +
+  theme_minimal()
+```
+
+```{r 7e}
+library(ggplot2)
+
+ggplot(alexaFile, aes(x = variation, y = rating, fill = variation)) +
+  geom_boxplot() +
+  labs(title = "Relationship Between Variations and Ratings",
+       x = "Variation",
+       y = "Rating") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
